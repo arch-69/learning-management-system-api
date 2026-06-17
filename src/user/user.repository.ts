@@ -1,5 +1,5 @@
 import { InjectModel } from "@nestjs/mongoose";
-import { User} from "./schema/user.schema";
+import { User, UserDocument} from "./schema/user.schema";
 import { Model } from "mongoose";
 import { ConflictException, Injectable } from "@nestjs/common";
 import {CreatedDTO } from "./dto/user.dto";
@@ -9,7 +9,7 @@ Injectable()
 export class UserRepository{
     constructor(@InjectModel(User.name) private user : Model<User> ){}
 
-    async create(createDTO: CreatedDTO): Promise<User> {
+    async create(createDTO: CreatedDTO): Promise<UserDocument> {
         try{
         return await this.user.create(createDTO);
         }catch(error : unknown){

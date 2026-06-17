@@ -1,7 +1,8 @@
 import { Schema, Prop, SchemaFactory } from "@nestjs/mongoose";
-import { Document } from "mongoose";
+import { Document, Mongoose, Types } from "mongoose";
+import { ObjectUnsubscribedError } from "rxjs";
 
-export type UserDocument = User | Document;
+export type UserDocument = User & Document;
 
 export enum UserRole {
     STUDENT = "student",

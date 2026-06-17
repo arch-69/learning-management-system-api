@@ -8,6 +8,7 @@ import appConfig from './config/app.config';
 import databaseConfig from './config/database.config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { DatabaseModule } from './shared/database/database.module';
+import jwtConfig from './config/jwt.config';
 
 @Module({
   controllers: [AppController],
@@ -16,7 +17,8 @@ import { DatabaseModule } from './shared/database/database.module';
     isGlobal:true,
     load:[
       appConfig,
-      databaseConfig
+      databaseConfig,
+      jwtConfig
     ]
   }),
   DatabaseModule,
