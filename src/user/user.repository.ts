@@ -1,7 +1,7 @@
 import { InjectModel } from "@nestjs/mongoose";
 import { User, UserDocument} from "./schema/user.schema";
 import { Model } from "mongoose";
-import { ConflictException, Injectable } from "@nestjs/common";
+import { ConflictException, Injectable, NotFoundException} from "@nestjs/common";
 import {CreatedDTO } from "./dto/user.dto";
 import { UserRegisterResponse } from "src/common/user.response";
 
@@ -19,6 +19,14 @@ export class UserRepository{
              throw new ConflictException("User already exist");
             }
             throw error;
+        }
+    }
+
+    async findByEmail(email:string): Promise<UserDocument> {
+        try{
+            return await this.user.findOne({email:email}).exec() as UserDocument;
+        }catch(err){
+            throw new NotFoundException();
         }
     }
 }

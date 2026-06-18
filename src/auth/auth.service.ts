@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { TokenPair, UserRegisterResponse } from 'src/common/user.response';
 import { CreatedDTO } from 'src/user/dto/user.dto';
 import { UserService } from 'src/user/user.service';
 import bcrypt from "bcrypt";
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { LoginDTO } from './auth.controller';
 
 @Injectable()
 export class AuthService {
@@ -44,6 +45,28 @@ export class AuthService {
         return {
             accessToken,
             refreshToken
+        }
+    }
+
+    async login(loginDTO: LoginDTO){
+        const user = await this.userService.findByEmail(loginDTO.email as string);
+        
+        const pass = user.password as string;
+
+        if(!(await bcrypt.compare(loginDTO.password as string, pass))) 
+            throw new UnauthorizedException();
+
+        const tokens = await this.generateToken(user._id.toHexString(), user.role as string);
+
+        return {
+            message:"login successfully completed",
+            date:{
+                id:user._id,
+                name:user.name,
+                email:user.email,
+                role:user.role
+            },
+            tokens
         }
     }
 }

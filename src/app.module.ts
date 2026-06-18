@@ -8,6 +8,7 @@ import appConfig from './config/app.config';
 import databaseConfig from './config/database.config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { DatabaseModule } from './shared/database/database.module';
+import { CourseModule } from './course/course.module';
 import jwtConfig from './config/jwt.config';
 
 @Module({
@@ -22,6 +23,7 @@ import jwtConfig from './config/jwt.config';
     ]
   }),
   DatabaseModule,
+  CourseModule,
 ],
 })
 export class AppModule {}

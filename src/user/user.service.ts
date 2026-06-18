@@ -10,4 +10,8 @@ export class UserService {
     create(createDTO:CreatedDTO):Promise<UserDocument>{
         return this.userRepository.create(createDTO);
     }
+
+    findByEmail(email:string):Promise<UserDocument>{
+        return this.userRepository.findByEmail(email);
+    }
 }
