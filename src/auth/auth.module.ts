@@ -15,7 +15,7 @@ import jwtConfig from 'src/config/jwt.config';
     ConfigModule.forRoot({
       isGlobal: true,
       load:[
-        jwtConfig
+        jwtConfig,
       ]
     }),
     JwtModule.registerAsync({
