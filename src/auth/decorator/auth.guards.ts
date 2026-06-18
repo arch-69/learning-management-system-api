@@ -13,8 +13,7 @@ export class AuthGuard implements CanActivate{
 
         const token = this.extractAuthorizationHeader(request);
         console.log(token);
- 
-        
+
         if(!token) throw new UnauthorizedException();
 
         console.log(this.configService.get<string>("jwt.accessTokenSecret"));
